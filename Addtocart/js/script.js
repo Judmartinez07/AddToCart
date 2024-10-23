@@ -14,8 +14,6 @@ const tasks = ref(baseDades, "tareas");
 
 boto.addEventListener("click",function(){
     push(tasks, input.value)
-
-   addElement(input);
    clearScreen();
   
 })
@@ -29,10 +27,15 @@ function clearScreen(){
     input.value = ""
 }
 
+function clearList(){
+    lista.innerHTML=""
+}
+
 
 
 onValue(tasks, function (snapshot) {
     let resultats = Object.values(snapshot.val())
+    clearList()
     for (let i = 0; i < resultats.length; i++) {
         let current = resultats[i]
         addElement(current)
