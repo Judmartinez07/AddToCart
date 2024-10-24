@@ -18,10 +18,15 @@ boto.addEventListener("click",function(){
   
 })
 
-function addElement(input){
-    lista.innerHTML += `<li>${input}</li>`;
+function addElement(e){
+    let elementLista = document.createElement("li");
+    elementLista.id=e[0]
+    elementLista.textContent=e[1];
+    lista.append(elementLista);
 
 }
+
+
 
 function clearScreen(){
     input.value = ""
@@ -34,7 +39,7 @@ function clearList(){
 
 
 onValue(tasks, function (snapshot) {
-    let resultats = Object.values(snapshot.val())
+    let resultats = Object.entries(snapshot.val())
     clearList()
     for (let i = 0; i < resultats.length; i++) {
         let current = resultats[i]
