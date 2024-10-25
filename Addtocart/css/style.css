@@ -60,6 +60,10 @@ ul li{
     flex-grow: 1;
 }
 
+button:hover{
+    background-color: #f2d7d5;
+}
+
 ul li:hover{
     background-color: #f2d7d5;
 }

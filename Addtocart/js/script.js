@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js" 
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js" 
 
 const input = document.getElementById("inputField");
 const boto = document.getElementById("afegir");
@@ -22,8 +22,12 @@ function addElement(e){
     let elementLista = document.createElement("li");
     elementLista.id=e[0]
     elementLista.textContent=e[1];
-    lista.append(elementLista);
 
+    elementLista.addEventListener ("click",function(){
+        let LocalitzacioItem = ref(baseDades,`tareas/${e[0]}`)
+        remove(LocalitzacioItem)
+    })
+    lista.append(elementLista);
 }
 
 
@@ -39,10 +43,19 @@ function clearList(){
 
 
 onValue(tasks, function (snapshot) {
-    let resultats = Object.entries(snapshot.val())
+    if (snapshot.exists()){
+
+        let resultats = Object.entries(snapshot.val())
+    
     clearList()
     for (let i = 0; i < resultats.length; i++) {
         let current = resultats[i]
         addElement(current)
+    } 
+    }else{
+        lista.innerHTML = "NO ITEMS YET..."
     }
 })
+
+
+
